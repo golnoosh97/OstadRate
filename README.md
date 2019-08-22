@@ -1,6 +1,6 @@
-#### Simple Project about rating teachers.
+## Simple Project about rating teachers.
 
-* Installation:
+## Installation:
 
 ```bash
 git clone https://github.com/mahdi-malv/OstadRate.git
@@ -9,7 +9,7 @@ cd Ostadrate
 studio .
 ```
 
-Class `Pulp` is a simple logger utility.
+### Class `Pulp` is a simple logger utility.
 
 #### Usage
 
@@ -33,6 +33,8 @@ Pulp.info(TAG, message)
    .addMessage(key2, message2)
    .log();
 ```
+
+> Different log levels are `info`, `debug`, `warn`, `error` and `wtf`.
 
 #### Main tag
 
