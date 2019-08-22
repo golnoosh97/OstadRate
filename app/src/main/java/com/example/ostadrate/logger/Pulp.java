@@ -32,7 +32,7 @@ public class Pulp {
         handlers.add(handler);
     }
 
-    public static void clearhandlers(){
+    public static void clearHandlers(){
         handlers.clear();
     }
 
@@ -212,7 +212,7 @@ public class Pulp {
     }
 
 
-    private enum LogLevel {
+    public enum LogLevel {
         INFO,
         DEBUG,
         WARN,
