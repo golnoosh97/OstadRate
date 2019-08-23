@@ -9,7 +9,7 @@ cd Ostadrate
 studio .
 ```
 
-### Class `Pulp` is a simple logger utility.
+### Class `Pulp` is a simple logger utility (For java).
 
 #### Usage
 
