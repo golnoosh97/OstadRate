@@ -35,7 +35,7 @@ public class RateTeacherActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rate_teacher);
         setTitle("Rate teacher");
 
-        testList();
+        generateFakeList();
 
         RecyclerView list = findViewById(R.id.list);
         list.setHasFixedSize(false);
@@ -52,11 +52,15 @@ public class RateTeacherActivity extends AppCompatActivity {
         list.setAdapter(adapter);
     }
 
-    public void testList() {
+    public void generateFakeList() {
         Teacher mmd = new Teacher(11, "Mohammad meshkani",
                 "https://avatars3.githubusercontent.com/u/20459019?s=400&v=4",
                 "Azad sabzevar");
+        Teacher me = new Teacher(12, "Mahdi Malvandi",
+                "https://avatars2.githubusercontent.com/u/21319971?s=460&v=4",
+                "University of Semnan");
         teachers.add(mmd);
+        teachers.add(me);
     }
 
     @Override
