@@ -9,6 +9,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -18,7 +19,7 @@ android {
     }
 }
 
-def deps = [
+def externalLibraries = [
         Picasso: 'com.squareup.picasso:picasso:2.71828',
         EazeGraph        : 'com.github.blackfizz:eazegraph:1.2.2@aar',
         EazeGraph2       : 'com.nineoldandroids:library:2.4.0',
@@ -35,12 +36,15 @@ def deps = [
         retrofitScalar   : 'com.squareup.retrofit2:converter-scalars:2.6.0',
         retrofitMoshi    : "com.squareup.retrofit2:converter-moshi:2.6.0",
 
+        NumberPicker     : 'com.shawnlin:number-picker:2.4.8',
+
 ]
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    deps.values().forEach { implementation it }
+    // Implementation all libraries
+    externalLibraries.values().forEach { implementation it }
 
     // Testing
     testImplementation 'junit:junit:4.12'

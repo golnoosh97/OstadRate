@@ -1,14 +1,21 @@
 
 package com.example.ostadrate.pages;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.ostadrate.Comment;
 import com.example.ostadrate.R;
 import com.example.ostadrate.Rate;
+import com.shawnlin.numberpicker.NumberPicker;
 import com.squareup.picasso.Picasso;
 
 import org.eazegraph.lib.charts.StackedBarChart;
@@ -46,10 +54,10 @@ public class RateTeacherDetails extends AppCompatActivity {
         setTitle("Rate this Ostad");
         attachViews();
 
-        int id = getIntent().getIntExtra("personalCode", -1);
+        final int id = getIntent().getIntExtra("personalCode", -1);
         // Fetch the personal code to get the full data
 
-        generateFakeInfo();
+        generateFakeInfo(id);
 
         list.setLayoutManager(new LinearLayoutManager(this));
         adapter = new Adapter(generateFakeComment());
@@ -58,8 +66,63 @@ public class RateTeacherDetails extends AppCompatActivity {
         setChartValues(chart1,
                 generateFakeRate().getTeachingQuality(),
                 generateFakeRate().getBehaviour(),
-                generateFakeRate().getMark()
+                generateFakeRate().getGrading()
         );
+
+        // When add feedback was clicked
+        addFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final RateSelectorDialogView selector = new RateSelectorDialogView(RateTeacherDetails.this);
+                new AlertDialog.Builder(RateTeacherDetails.this)
+                        .setTitle("Enter feedback")
+                        .setMessage("Complete the things")
+                        .setView(selector.container)
+                        .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int which) {
+                                int grading = selector.grading.getValue();
+                                int teaching = selector.teaching.getValue();
+                                int behaviour = selector.behaviour.getValue();
+                                int teacherId = id;
+                                Toast.makeText(RateTeacherDetails.this,
+                                        String.format("TeacherId:%s ->Grading:%s|Teaching:%s|Behaviour:%s Will be sent to server.",
+                                                teacherId, grading, teaching, behaviour),
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton("Cancel", null)
+                        .create()
+                        .show();
+            }
+        });
+
+        addComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final RateCommentDialogView commentView = new RateCommentDialogView(RateTeacherDetails.this);
+                new AlertDialog.Builder(RateTeacherDetails.this)
+                        .setTitle("Enter comment")
+                        .setView(commentView.container)
+                        .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Toast.makeText(RateTeacherDetails.this,
+                                        "TeacherId: " + id + "\n" +
+                                        "Name: " + commentView.getNameValue() + "\n" +
+                                                "Comment: " + commentView.getCommentValue()
+                                        , Toast.LENGTH_SHORT).show();
+                                List<Comment> comments = generateFakeComment();
+                                comments.add(new Comment(id, commentView.getNameValue(), commentView.getCommentValue()));
+                                adapter.updateComments(comments);
+                            }
+                        })
+                        .setNegativeButton("Cancel", null)
+                        .create()
+                        .show();
+
+            }
+        });
     }
 
     private void attachViews() {
@@ -73,7 +136,7 @@ public class RateTeacherDetails extends AppCompatActivity {
         list = findViewById(R.id.comments);
     }
 
-    void setChartValues(StackedBarChart chart, double teachingQuality, double behaviour, double point) {
+    void setChartValues(StackedBarChart chart, double teachingQuality, double behaviour, double grading) {
         chart.addBar(new StackedBarModel("Teaching", Arrays.asList(
                 new BarModel((float) teachingQuality, teachingQuality < 5f ? Color.RED : Color.GREEN),
                 new BarModel(10f - (float) teachingQuality, Color.WHITE)
@@ -84,17 +147,26 @@ public class RateTeacherDetails extends AppCompatActivity {
                 new BarModel(10f - (float) behaviour, Color.WHITE)
         )));
 
-        chart.addBar(new StackedBarModel("Point", Arrays.asList(
-                new BarModel((float) point, point < 5f ? Color.RED : Color.GREEN),
-                new BarModel(10f - (float) point, Color.WHITE)
+        chart.addBar(new StackedBarModel("Grading", Arrays.asList(
+                new BarModel((float) grading, grading < 5f ? Color.RED : Color.GREEN),
+                new BarModel(10f - (float) grading, Color.WHITE)
         )));
     }
 
-    void generateFakeInfo() {
-        name.setText("Mohammad Meshkani");
-        Picasso.get().load("https://avatars2.githubusercontent.com/u/20459019?s=460&v=4").into(image);
-        university.setText("Azad sabzevar");
-        status.setText("Status: Playing with Flutter");
+    // ----- Fake info
+
+    void generateFakeInfo(int id) {
+        if (id == 11) {
+            name.setText("Mohammad Meshkani");
+            Picasso.get().load("https://avatars2.githubusercontent.com/u/20459019?s=460&v=4").into(image);
+            university.setText("Azad sabzevar");
+            status.setText("Votes: 3");
+        } else if (id == 12) {
+            name.setText("Mahdi Malvandi");
+            Picasso.get().load("https://avatars2.githubusercontent.com/u/21319971?s=460&v=4").into(image);
+            university.setText("University of semnan");
+            status.setText("Votes: 11");
+        }
     }
 
     List<Comment> generateFakeComment() {
@@ -110,10 +182,8 @@ public class RateTeacherDetails extends AppCompatActivity {
         return new Rate(11, 4.1, 1.3, 6.2);
     }
 
+    // ----- List classes
 
-    /**
-     * List adapter for comments
-     */
     class Adapter extends RecyclerView.Adapter<ViewModel> {
 
         private List<Comment> dataSet;
@@ -155,6 +225,54 @@ public class RateTeacherDetails extends AppCompatActivity {
             super(itemView);
             name = itemView.findViewById(R.id.name);
             comment = itemView.findViewById(R.id.comment);
+        }
+    }
+
+
+    @SuppressLint("InflateParams")
+    class RateSelectorDialogView {
+
+        private NumberPicker teaching, behaviour, grading;
+        private View container;
+
+        RateSelectorDialogView(Context context) {
+            container = LayoutInflater.from(context).inflate(R.layout.rate_selector_layout, null);
+            teaching = container.findViewById(R.id.teaching);
+            teaching.setDividerColor(Color.WHITE);
+            teaching.setMaxValue(5);
+            teaching.setDisplayedValues(new String[] {"1", "2", "3", "4", "5"});
+            teaching.setOrientation(NumberPicker.ASCENDING);
+            behaviour = container.findViewById(R.id.behaviour);
+            behaviour.setDividerColor(Color.WHITE);
+            behaviour.setMaxValue(5);
+            behaviour.setDisplayedValues(new String[] {"1", "2", "3", "4", "5"});
+            behaviour.setOrientation(NumberPicker.ASCENDING);
+            grading = container.findViewById(R.id.grading);
+            grading.setDividerColor(Color.WHITE);
+            grading.setMaxValue(5);
+            grading.setDisplayedValues(new String[] {"1", "2", "3", "4", "5"});
+            grading.setOrientation(NumberPicker.ASCENDING);
+        }
+    }
+
+    @SuppressLint("InflateParams")
+    class RateCommentDialogView {
+
+        private EditText name, comment;
+        private View container;
+
+        RateCommentDialogView(Context context) {
+            container = LayoutInflater.from(context).inflate(R.layout.rate_comment_layout, null);
+            name = container.findViewById(R.id.nameEdit);
+            comment = container.findViewById(R.id.commentEdit);
+        }
+
+        public String getNameValue() {
+            return name.getText().toString();
+        }
+
+        public String getCommentValue() {
+            return comment.getText().toString();
         }
     }
 }

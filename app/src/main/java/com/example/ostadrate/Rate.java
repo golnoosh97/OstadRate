@@ -5,13 +5,13 @@ public class Rate {
     private int teacherId;
     private double behaviour;
     private double teachingQuality;
-    private double mark;
+    private double grading;
 
-    public Rate(int teacherId, double behaviour, double teachingQuality, double mark) {
+    public Rate(int teacherId, double behaviour, double teachingQuality, double grading) {
         this.teacherId = teacherId;
         this.behaviour = behaviour;
         this.teachingQuality = teachingQuality;
-        this.mark = mark;
+        this.grading = grading;
     }
 
     public int getTeacherId() {
@@ -38,11 +38,11 @@ public class Rate {
         this.teachingQuality = teachingQuality;
     }
 
-    public double getMark() {
-        return mark;
+    public double getGrading() {
+        return grading;
     }
 
-    public void setMark(double mark) {
-        this.mark = mark;
+    public void setGrading(double grading) {
+        this.grading = grading;
     }
 }
