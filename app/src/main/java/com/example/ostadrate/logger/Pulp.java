@@ -14,7 +14,7 @@ public class Pulp {
     private static boolean isLogEnabled = true;
     private static boolean isLogHandlerEnabled = true;
     private static String mainTag = "Pulp";
-    private static List<LogHandler> handlers;
+    private static List<LogHandler> handlers = new ArrayList<>();
 
     public static void setLogEnabled(boolean enabled) {
         isLogEnabled = enabled;
@@ -200,7 +200,7 @@ public class Pulp {
     }
 
     private static String getMessage(String tag, String message, Map<String, String> data) {
-        StringBuilder text = new StringBuilder("Tag: \n" + tag + "\n" +
+        StringBuilder text = new StringBuilder(".\nTag: \t" + tag + "\n" +
                 "Message: " + message + "\n");
         if (data.size() != 0) {
             text.append("Data:\n");

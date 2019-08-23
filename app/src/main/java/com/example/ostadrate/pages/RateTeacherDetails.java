@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.ostadrate.Comment;
 import com.example.ostadrate.R;
 import com.example.ostadrate.Rate;
+import com.example.ostadrate.logger.Pulp;
 import com.shawnlin.numberpicker.NumberPicker;
 import com.squareup.picasso.Picasso;
 
@@ -85,10 +86,13 @@ public class RateTeacherDetails extends AppCompatActivity {
                                 int teaching = selector.teaching.getValue();
                                 int behaviour = selector.behaviour.getValue();
                                 int teacherId = id;
-                                Toast.makeText(RateTeacherDetails.this,
-                                        String.format("TeacherId:%s ->Grading:%s|Teaching:%s|Behaviour:%s Will be sent to server.",
-                                                teacherId, grading, teaching, behaviour),
-                                        Toast.LENGTH_SHORT).show();
+
+                                Pulp.debug("TeacherRate", "Teacher rate submitted")
+                                        .addMessage("TeacherId", String.valueOf(teacherId))
+                                        .addMessage("Teaching", String.valueOf(teaching))
+                                        .addMessage("Grading", String.valueOf(grading))
+                                        .addMessage("Behaviour", String.valueOf(behaviour))
+                                        .log();
                             }
                         })
                         .setNegativeButton("Cancel", null)
@@ -107,11 +111,11 @@ public class RateTeacherDetails extends AppCompatActivity {
                         .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Toast.makeText(RateTeacherDetails.this,
-                                        "TeacherId: " + id + "\n" +
-                                        "Name: " + commentView.getNameValue() + "\n" +
-                                                "Comment: " + commentView.getCommentValue()
-                                        , Toast.LENGTH_SHORT).show();
+                                Pulp.debug("Add Comment", "Comment generated")
+                                        .addMessage("TeacherId", String.valueOf(id))
+                                        .addMessage("Name", commentView.getNameValue())
+                                        .addMessage("Comment", commentView.getCommentValue())
+                                        .log();
                                 List<Comment> comments = generateFakeComment();
                                 comments.add(new Comment(id, commentView.getNameValue(), commentView.getCommentValue()));
                                 adapter.updateComments(comments);
