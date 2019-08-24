@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".pages.RateTeacherDetails"
+    tools:ignore="HardcodedText">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/teacherImage"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:padding="8dp"
+        android:layout_margin="8dp"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="21sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/university"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
+
+    <!-- A few checkboxes and seekBars -->
+    <!-- EditText for commenting -->
+
+    <org.eazegraph.lib.charts.StackedBarChart
+        android:id="@+id/lineChart1"
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:weightSum="3"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/addFeedback"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="0.5"
+            android:text="Add feedback"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            app:backgroundTint="@color/colorPrimary" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/addComment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight=".5"
+            android:text="Add comment"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            app:backgroundTint="@color/colorPrimary" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Comments: "
+        android:textColor="#FFFFFF"
+        android:padding="2dp"
+        android:background="#858585"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/comments"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp" />
+</LinearLayout>
