@@ -10,9 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -21,9 +19,9 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.ostadrate.Comment;
+import com.example.ostadrate.model.Comment;
 import com.example.ostadrate.R;
-import com.example.ostadrate.Rate;
+import com.example.ostadrate.model.Rate;
 import com.example.ostadrate.logger.Pulp;
 import com.shawnlin.numberpicker.NumberPicker;
 import com.squareup.picasso.Picasso;

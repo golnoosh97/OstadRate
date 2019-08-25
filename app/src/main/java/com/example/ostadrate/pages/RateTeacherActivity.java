@@ -16,13 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ostadrate.R;
-import com.example.ostadrate.Teacher;
-import com.example.ostadrate.logger.Pulp;
+import com.example.ostadrate.model.Teacher;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 

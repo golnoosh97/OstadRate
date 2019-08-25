@@ -1,4 +1,4 @@
-package com.example.ostadrate;
+package com.example.ostadrate.model;
 
 public class Comment {
 
