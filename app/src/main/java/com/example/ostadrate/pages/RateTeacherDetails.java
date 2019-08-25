@@ -23,6 +23,9 @@ import com.example.ostadrate.model.Comment;
 import com.example.ostadrate.R;
 import com.example.ostadrate.model.Rate;
 import com.example.ostadrate.logger.Pulp;
+import com.example.ostadrate.model.Teacher;
+import com.example.ostadrate.network.Net;
+import com.example.ostadrate.network.Requests;
 import com.shawnlin.numberpicker.NumberPicker;
 import com.squareup.picasso.Picasso;
 
@@ -35,6 +38,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.internal.EverythingIsNonNull;
 
 public class RateTeacherDetails extends AppCompatActivity {
 
@@ -243,17 +250,17 @@ public class RateTeacherDetails extends AppCompatActivity {
             teaching.setDividerColor(Color.WHITE);
             teaching.setMaxValue(5);
             teaching.setDisplayedValues(new String[] {"1", "2", "3", "4", "5"});
-            teaching.setOrientation(NumberPicker.ASCENDING);
+            teaching.setOrientation(NumberPicker.HORIZONTAL);
             behaviour = container.findViewById(R.id.behaviour);
             behaviour.setDividerColor(Color.WHITE);
             behaviour.setMaxValue(5);
             behaviour.setDisplayedValues(new String[] {"1", "2", "3", "4", "5"});
-            behaviour.setOrientation(NumberPicker.ASCENDING);
+            behaviour.setOrientation(NumberPicker.HORIZONTAL);
             grading = container.findViewById(R.id.grading);
             grading.setDividerColor(Color.WHITE);
             grading.setMaxValue(5);
             grading.setDisplayedValues(new String[] {"1", "2", "3", "4", "5"});
-            grading.setOrientation(NumberPicker.ASCENDING);
+            grading.setOrientation(NumberPicker.HORIZONTAL);
         }
     }
 
@@ -269,11 +276,11 @@ public class RateTeacherDetails extends AppCompatActivity {
             comment = container.findViewById(R.id.commentEdit);
         }
 
-        public String getNameValue() {
+        String getNameValue() {
             return name.getText().toString();
         }
 
-        public String getCommentValue() {
+        String getCommentValue() {
             return comment.getText().toString();
         }
     }
