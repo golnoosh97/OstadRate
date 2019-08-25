@@ -19,28 +19,29 @@ android {
     }
 }
 
-def externalLibraries = [
-        Picasso: 'com.squareup.picasso:picasso:2.71828',
-        EazeGraph        : 'com.github.blackfizz:eazegraph:1.2.2@aar',
-        EazeGraph2       : 'com.nineoldandroids:library:2.4.0',
-        CircleImageView  : 'de.hdodenhof:circleimageview:3.0.0',
-        //AndroidX
-        AppCompat        : 'androidx.appcompat:appcompat:1.1.0-alpha03',
-        Constraint       : 'androidx.constraintlayout:constraintlayout:1.1.3',
-        LegacySupportV4  : 'androidx.legacy:legacy-support-v4:1.0.0',
-
-        Recycler         : 'androidx.recyclerview:recyclerview:1.1.0-alpha03',
-        CardView         : 'androidx.cardview:cardview:1.0.0',
-
-        retrofit         : 'com.squareup.retrofit2:retrofit:2.6.0',
-        retrofitScalar   : 'com.squareup.retrofit2:converter-scalars:2.6.0',
-        retrofitMoshi    : "com.squareup.retrofit2:converter-moshi:2.6.0",
-
-        NumberPicker     : 'com.shawnlin:number-picker:2.4.8',
-
-]
 
 dependencies {
+    def externalLibraries = [
+            EazeGraph      : 'com.github.blackfizz:eazegraph:1.2.2@aar',
+            EazeGraph2     : 'com.nineoldandroids:library:2.4.0',
+            CircleImageView: 'de.hdodenhof:circleimageview:3.0.0',
+            //AndroidX
+            AppCompat      : 'androidx.appcompat:appcompat:1.1.0-alpha03',
+            Constraint     : 'androidx.constraintlayout:constraintlayout:1.1.3',
+            LegacySupportV4: 'androidx.legacy:legacy-support-v4:1.0.0',
+
+            Recycler       : 'androidx.recyclerview:recyclerview:1.1.0-alpha03',
+            CardView       : 'androidx.cardview:cardview:1.0.0',
+
+            retrofit       : 'com.squareup.retrofit2:retrofit:2.6.0',
+            retrofitScalar : 'com.squareup.retrofit2:converter-scalars:2.6.0',
+            retrofitMoshi  : "com.squareup.retrofit2:converter-moshi:2.6.0",
+            Interceptor    : 'com.squareup.okhttp3:logging-interceptor:3.12.1',
+            Picasso        : 'com.squareup.picasso:picasso:2.71828',
+
+            NumberPicker   : 'com.shawnlin:number-picker:2.4.8',
+
+    ]
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // Implementation all libraries
