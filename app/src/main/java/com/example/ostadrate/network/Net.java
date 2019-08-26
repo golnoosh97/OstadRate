@@ -4,6 +4,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.moshi.MoshiConverterFactory;
+import com.example.ostadrate.Constant;
 
 public class Net {
 
@@ -13,7 +14,7 @@ public class Net {
         if (retrofitInstance == null) {
             retrofitInstance = new Retrofit.Builder()
                     .addConverterFactory(MoshiConverterFactory.create())
-                    .baseUrl("")
+                    .baseUrl(Constant.BASE_URL)
                     .client(getClient())
                     .build();
         }
