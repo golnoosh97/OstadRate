@@ -1,9 +1,16 @@
 package com.example.ostadrate.model;
 
+import com.squareup.moshi.Json;
+
 public class Comment {
 
+    @Json(name = "teacher_id")
     private int teacherId;
+
+    @Json(name = "name")
     private String name;
+
+    @Json(name = "comment")
     private String comment;
 
     public Comment(int teacherId, String name, String comment) {

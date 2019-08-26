@@ -17,12 +17,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ostadrate.R;
 import com.example.ostadrate.model.Teacher;
+import com.example.ostadrate.network.Net;
+import com.example.ostadrate.network.Requests;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.internal.EverythingIsNonNull;
 
 public class RateTeacherActivity extends AppCompatActivity {
 
@@ -35,7 +41,7 @@ public class RateTeacherActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rate_teacher);
         setTitle("Rate teacher");
 
-        generateFakeList();
+//        generateFakeList();
 
         RecyclerView list = findViewById(R.id.list);
         list.setHasFixedSize(false);
@@ -50,6 +56,28 @@ public class RateTeacherActivity extends AppCompatActivity {
             }
         });
         list.setAdapter(adapter);
+
+        updateTeachers();
+    }
+
+    void updateTeachers() {
+        Net.retrofit().create(Requests.class)
+                .getAllTeachers().enqueue(new Callback<List<Teacher>>() {
+
+            @EverythingIsNonNull
+            @Override
+            public void onResponse(Call<List<Teacher>> call, Response<List<Teacher>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    adapter.updateSet(response.body());
+                }
+            }
+
+            @EverythingIsNonNull
+            @Override
+            public void onFailure(Call<List<Teacher>> call, Throwable t) {
+
+            }
+        });
     }
 
     public void generateFakeList() {
